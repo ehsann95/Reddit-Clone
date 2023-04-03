@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useSignOut } from "react-firebase-hooks/auth";
-import { useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authModalState } from "../../../atoms/authModalAtom";
 import { auth } from "../../../firebase/clientApp";
 
@@ -26,17 +26,28 @@ import { auth } from "../../../firebase/clientApp";
 import { FaRedditSquare } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
 import { IoSparkles } from "react-icons/io5";
+import { communityState } from "@/src/atoms/communitiesAtom";
+// import { useRouter } from "next/router";
 
 type MenuWrapperProps = {};
 
 const MenuWrapper: React.FC<MenuWrapperProps> = () => {
+  const resetCommunityData = useResetRecoilState(communityState);
   const setAuthModalState = useSetRecoilState(authModalState);
   const [user] = useAuthState(auth);
   const [signOut, loading, error] = useSignOut(auth);
 
   const onSignOut = async () => {
     await signOut();
+    resetCommunityData();
+    // redirect();
   };
+
+  // redirect to homepage
+  // let router = useRouter();
+  // function redirect() {
+  //   router.push("/");
+  // }
 
   return (
     <Menu>
