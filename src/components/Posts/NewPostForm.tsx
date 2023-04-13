@@ -1,10 +1,11 @@
 import { Flex, Icon } from "@chakra-ui/react";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
 import TextInputs from "./PostForm/TextInputs";
 import TabItem from "./TabItem";
+import ImageUpload from "./PostForm/ImageUpload";
 
 type NewPostFormProps = {};
 
@@ -43,11 +44,23 @@ const NewPostForm: React.FC<NewPostFormProps> = () => {
     body: "",
   });
   const [selectedFile, setSelectedFile] = useState<string>();
+  const selectFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
 
   const handleCreatePost = async () => {};
 
-  const onSelectChange = () => {};
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    if (event.target.files?.[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      if (readerEvent.target?.result) {
+        setSelectedFile(readerEvent.target?.result as string);
+      }
+    };
+  };
 
   const onTextChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -80,6 +93,16 @@ const NewPostForm: React.FC<NewPostFormProps> = () => {
             onChange={onTextChange}
             handleCreatePost={handleCreatePost}
             loading={loading}
+          />
+        )}
+
+        {selectedTab === "Images & Video" && (
+          <ImageUpload
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+            setSelectedTab={setSelectedTab}
+            selectFileRef={selectFileRef}
+            onSelectImage={onSelectImage}
           />
         )}
       </Flex>
