@@ -12,7 +12,7 @@ export type Post = {
   numberOfComments: number;
   voteStatus: number;
   imageURL?: string;
-  createdAt?: Timestamp;
+  createdAt: Timestamp;
   // userDisplayText: string;
   // currentUserVoteStatus?: {
   //   id: string;
