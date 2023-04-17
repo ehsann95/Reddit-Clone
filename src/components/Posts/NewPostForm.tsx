@@ -101,6 +101,8 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
         });
         console.log("HERE IS DOWNLOAD URL", downloadURL);
       }
+      // redirect the user back to communityPage using the router
+      router.back();
     } catch (error: any) {
       console.log("handleCreatePost", error.message);
       setError(true);
