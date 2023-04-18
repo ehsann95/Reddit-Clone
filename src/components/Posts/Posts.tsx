@@ -64,7 +64,7 @@ const Posts: React.FC<PostsProps> = ({ communityData }) => {
             <PostItem
               key={item.id}
               post={item}
-              userIsCreator={user?.uid === item.createdAt}
+              userIsCreator={user?.uid === item.creatorId}
               userVoteValue={undefined}
               onVote={onVote}
               onSelectPost={onSelectPost}

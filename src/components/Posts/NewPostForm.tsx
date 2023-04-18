@@ -73,6 +73,7 @@ const NewPostForm: React.FC<NewPostFormProps> = ({ user }) => {
       title: textInputs.title,
       body: textInputs.body,
       numberOfComments: 0,
+      userDisplayText: user.email!.split("@")[0],
       voteStatus: 0,
       createdAt: serverTimestamp() as Timestamp,
     };

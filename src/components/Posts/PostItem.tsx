@@ -56,9 +56,26 @@ const PostItem: React.FC<PostItemContentProps> = ({
 }) => {
   const [loadingImage, setLoadingImage] = useState(true);
   const [loadingDelete, setLoadingDelete] = useState(false);
+  const [error, setError] = useState(false);
+
   const singlePostView = !onSelectPost; // function not passed to [pid]
 
-  const handleDelete = async () => {};
+  const handleDelete = async () => {
+    setLoadingDelete(true);
+    try {
+      const success = await onDeletePost(post);
+      if (!success) {
+        throw new Error("Failed to delete post");
+      }
+
+      console.log("Post was successfully deleted.");
+    } catch (error: any) {
+      console.log("Handle delete post", error);
+      //set Error state
+      setError(error.message);
+    }
+    setLoadingDelete(false);
+  };
 
   return (
     <Flex
