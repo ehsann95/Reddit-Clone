@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import {
+  Alert,
+  AlertIcon,
   Flex,
   Icon,
   Image,
@@ -120,6 +122,12 @@ const PostItem: React.FC<PostItemContentProps> = ({
         />
       </Flex>
       <Flex direction="column" width="100%">
+        {error && (
+          <Alert status="error">
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
         <Stack spacing={1} p="10px 10px">
           {post.createdAt && (
             <Stack direction="row" spacing={0.6} align="center" fontSize="9pt">
