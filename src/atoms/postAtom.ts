@@ -22,10 +22,17 @@ export type Post = {
   editedAt?: Timestamp;
 };
 
+export type PostVote = {
+  id: string;
+  postId: string;
+  communityId: string;
+  voteValue: number;
+};
+
 interface PostState {
   selectedPost: Post | null;
   posts: Post[];
-  // postVotes: PostVote[];
+  postVotes: PostVote[];
   // postsCache: {
   //   [key: string]: Post[];
   // };
