@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import moment from "moment";
-import { NextRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import { AiOutlineDelete } from "react-icons/ai";
 import { BsChat, BsDot } from "react-icons/bs";
 import { FaReddit } from "react-icons/fa";
@@ -62,7 +62,10 @@ const PostItem: React.FC<PostItemContentProps> = ({
 
   const singlePostView = !onSelectPost; // function not passed to [pid]
 
-  const handleDelete = async () => {
+  const handleDelete = async (
+    event: React.MouseEvent<HTMLDivElement, MouseEvent>
+  ) => {
+    event.stopPropagation();
     setLoadingDelete(true);
     try {
       const success = await onDeletePost(post);
@@ -71,6 +74,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
       }
 
       console.log("Post was successfully deleted.");
+      router?.push(`/r/${post.communityId}`);
     } catch (error: any) {
       console.log("Handle delete post", error);
       //set Error state

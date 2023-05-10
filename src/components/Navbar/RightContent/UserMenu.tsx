@@ -32,14 +32,12 @@ import { communityState } from "@/src/atoms/communitiesAtom";
 type MenuWrapperProps = {};
 
 const MenuWrapper: React.FC<MenuWrapperProps> = () => {
-  const resetCommunityData = useResetRecoilState(communityState);
   const setAuthModalState = useSetRecoilState(authModalState);
   const [user] = useAuthState(auth);
   const [signOut, loading, error] = useSignOut(auth);
 
   const onSignOut = async () => {
     await signOut();
-    resetCommunityData();
     // redirect();
   };
 

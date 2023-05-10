@@ -8,6 +8,7 @@ import {
   writeBatch,
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
+import router from "next/router";
 import React, { useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
@@ -152,7 +153,15 @@ const usePosts = () => {
     }
   };
 
-  const onSelectPost = () => {};
+  const onSelectPost = (post: Post, postIdx: number) => {
+    console.log("HERE IS STUFF", post, postIdx);
+
+    setPostsStateValue((prev) => ({
+      ...prev,
+      selectedPost: { ...post, postIdx },
+    }));
+    router.push(`/r/${post.communityId}/comments/${post.id}`);
+  };
 
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {
@@ -197,6 +206,16 @@ const usePosts = () => {
     if (!user?.uid || !communityStateValue.currentCommunity) return;
     getCommunityPostVotes(communityStateValue.currentCommunity.id);
   }, [user, communityStateValue.currentCommunity]);
+
+  useEffect(() => {
+    if (!user) {
+      // Clear user post votes
+      setPostsStateValue((prev) => ({
+        ...prev,
+        postVotes: [],
+      }));
+    }
+  }, [user]);
 
   return {
     postStateValue,
