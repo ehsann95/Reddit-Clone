@@ -41,9 +41,7 @@ const About: React.FC<AboutProps> = ({
   const [user] = useAuthState(auth); // will revisit how 'auth' state is passed
   const selectFileRef = useRef<HTMLInputElement>(null);
   const setCommunityStateValue = useSetRecoilState(communityState);
-
   const [selectedFile, setSelectedFile] = useState<string>();
-
   const [imageLoading, setImageLoading] = useState(false);
 
   const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {

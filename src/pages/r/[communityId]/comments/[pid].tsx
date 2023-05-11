@@ -8,6 +8,7 @@ import { auth, firestore } from "../../../../firebase/clientApp";
 import useCommunityData from "../../../../hooks/useCommunityData";
 import usePosts from "../../../../hooks/usePosts";
 import PostItem from "@/src/components/Posts/PostItem";
+import { Post } from "@/src/atoms/postAtom";
 
 type PostPageProps = {};
 
@@ -25,7 +26,7 @@ const PostPage: React.FC<PostPageProps> = () => {
     loading,
     setLoading,
     onVote,
-  } = usePosts(communityStateValue.currentCommunity);
+  } = usePosts();
 
   const fetchPost = async () => {
     console.log("FETCHING POST");
@@ -62,14 +63,13 @@ const PostPage: React.FC<PostPageProps> = () => {
       {/* Left Content */}
       <>
         {loading ? (
-          <PostLoader />
+          <div>loading...</div>
         ) : (
           <>
             {postStateValue.selectedPost && (
               <>
                 <PostItem
                   post={postStateValue.selectedPost}
-                  // postIdx={postStateValue.selectedPost.postIdx}
                   onVote={onVote}
                   onDeletePost={onDeletePost}
                   userVoteValue={
@@ -82,11 +82,6 @@ const PostPage: React.FC<PostPageProps> = () => {
                   }
                   router={router}
                 />
-                {/* <Comments
-                  user={user}
-                  community={community as string}
-                  selectedPost={postStateValue.selectedPost}
-                /> */}
               </>
             )}
           </>
@@ -94,13 +89,15 @@ const PostPage: React.FC<PostPageProps> = () => {
       </>
       {/* Right Content */}
       <>
-        <About
-          communityData={
-            communityStateValue.currentCommunity
-            // communityStateValue.visitedCommunities[community as string]
-          }
-          loading={loading}
-        />
+        {communityStateValue.currentCommunity && (
+          <About
+            communityData={
+              communityStateValue.currentCommunity
+              // communityStateValue.visitedCommunities[community as string]
+            }
+            loading={loading}
+          />
+        )}
       </>
     </PageContentLayout>
   );

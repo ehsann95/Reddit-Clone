@@ -7,9 +7,7 @@ import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilValue } from "recoil";
 
-type submitProps = {};
-
-const submit: React.FC<submitProps> = () => {
+const Submit: React.FC = () => {
   const [user] = useAuthState(auth);
   const communityStateValue = useRecoilValue(communityState);
   console.log("Current Community", communityStateValue);
@@ -26,4 +24,4 @@ const submit: React.FC<submitProps> = () => {
     </PageContent>
   );
 };
-export default submit;
+export default Submit;

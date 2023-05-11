@@ -9,7 +9,7 @@ import {
 } from "firebase/firestore";
 import { deleteObject, ref } from "firebase/storage";
 import router from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { authModalState } from "../atoms/authModalAtom";
@@ -22,6 +22,7 @@ const usePosts = () => {
   const [postStateValue, setPostsStateValue] = useRecoilState(postState);
   const setAuthModalState = useSetRecoilState(authModalState);
   const communityStateValue = useRecoilValue(communityState);
+  const [loading, setLoading] = useState(false);
 
   const onVote = async (
     event: React.MouseEvent<SVGElement, MouseEvent>,
@@ -223,6 +224,8 @@ const usePosts = () => {
     onVote,
     onDeletePost,
     onSelectPost,
+    loading,
+    setLoading,
   };
 };
 export default usePosts;
