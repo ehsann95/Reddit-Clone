@@ -1,9 +1,11 @@
 import { Flex } from "@chakra-ui/react";
-import React from "react";
+import React, { ReactNode } from "react";
 
-type PageContentProps = {};
+type PageContentProps = {
+  children: ReactNode;
+};
 
-const PageContent: React.FC<PageContentProps> = ({ children }) => {
+const PageContent: React.FC<PageContentProps> = ({ children }: any) => {
   return (
     <Flex justify="center" padding="16px 0">
       <Flex width="95%" maxWidth="860px" justify="center">

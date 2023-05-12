@@ -146,7 +146,7 @@ const usePosts = () => {
       setPostsStateValue(updatedState);
 
       // Update database
-      const postRef = doc(firestore, "posts", post.id);
+      const postRef = doc(firestore, "posts", post.id as string);
       batch.update(postRef, { voteStatus: voteStatus + voteChange });
       await batch.commit();
     } catch (error) {
